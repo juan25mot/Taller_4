@@ -54,29 +54,36 @@ export function listarTodosLosLibros() {
   });
 }
  
+//Muestra solo los libros cuyo estado es 'disponible', usando .filter.
+
+export function listarLibrosDisponibles() {
+  const disponibles = libros.filter(libro => libro.estado === "disponible");
+  console.log("\nLIBROS DISPONIBLES PARA PRÉSTAMO");
+
+  if (disponibles.length === 0) {
+    console.log("No hay libros disponibles en este momento.");
+    return;
+  }
+  disponibles.forEach(libro => {
+    console.log(`ID: ${libro.id}\nTítulo: ${libro.titulo}\nAutor: ${libro.autor}`);
+  });
+}
+ 
 //Muestra libros filtrados por el autor, usando .filter.
 
 export function listarLibrosPorAutor(autor) {
+  const librosDelAutor = libros.filter(libro =>
+    libro.autor.toLowerCase().includes(autor.toLowerCase())
+  );
   console.log(`\nFILTRO: LIBROS DE ${autor.toUpperCase()}`);
-  const criterio = autor.toLowerCase();
-  const resultados = [];
 
-  for (let i = 0; i < libros.length; i++) {
-    const l = libros[i];
-    const autorLibro = l.autor.toLowerCase();
-    if (autorLibro.indexOf(criterio) !== -1) {
-      resultados.push(l);
-    }
-  }
-
-  if (resultados.length === 0) {
+  if (librosDelAutor.length === 0) {
     console.log(`No se encuentran libros de: "${autor}".`);
-    return [];
+    return;
   }
-
-  resultados.forEach(l => console.log(`ID: ${l.id}\nTítulo: ${l.titulo}\nEstado: ${l.estado.toUpperCase()}`));
-
-  return resultados; // útil para UI/tests
+  librosDelAutor.forEach(libro => {
+    console.log(`ID: ${libro.id}\nTítulo: ${libro.titulo}\nEstado: ${libro.estado.toUpperCase()}`);
+  });
 }
 
 //Función auxiliar, fundamental para el módulo de préstamos (usa .find).
