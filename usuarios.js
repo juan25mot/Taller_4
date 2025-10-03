@@ -32,5 +32,5 @@ export function listarUsuarios() {
         console.log(`Usuario N° ${index + 1}:\nNombre: ${u.nombre}\nEmail: ${u.email}`);
     });
 }
-// NOTA: No necesitamos 'module.exports' al usar 'export' directamente en la función.
+
  
